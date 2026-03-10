@@ -119,10 +119,23 @@ document.getElementById('contactForm').addEventListener('submit', function (e) {
     }
 });
 
-// Smooth scrolling for navigation links
+// Hamburger menu toggle
+const hamburger = document.getElementById('hamburger');
+const navMenu = document.getElementById('navMenu');
+
+hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    navMenu.classList.toggle('open');
+});
+
+// Smooth scrolling for navigation links + close mobile menu on click
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
+        // Close mobile menu
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('open');
+
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
             target.scrollIntoView({

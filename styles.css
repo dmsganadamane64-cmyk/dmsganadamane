@@ -78,6 +78,39 @@ html {
     font-weight: 700;
 }
 
+/* Hamburger Button — hidden on desktop */
+.hamburger {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    z-index: 1001;
+}
+
+.hamburger span {
+    display: block;
+    width: 26px;
+    height: 3px;
+    background-color: #333;
+    border-radius: 3px;
+    margin: 5px 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Animate to X when open */
+.hamburger.active span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
 /* Hero Section */
 .hero {
     position: relative;
@@ -370,7 +403,7 @@ html {
 
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 30px;
     max-width: 1000px;
     margin: 0 auto;
@@ -697,7 +730,6 @@ html {
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-bottom: 12px;
-    margin-top: 40%;
 }
 
 .footer-about {
@@ -914,7 +946,8 @@ html {
     }
 
     .product-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
     }
 
     .product-carousel-wrapper {
@@ -932,32 +965,66 @@ html {
 }
 
 @media screen and (max-width: 768px) {
+    /* Navbar: logo left, hamburger right */
     .navbar .container {
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    .nav-menu {
-        flex-wrap: wrap;
-        justify-content: center;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
         gap: 0;
     }
 
-    .nav-menu li {
-        padding: 0 12px;
-        border-right: 1px solid #e0e0e0;
-    }
-
-    .nav-menu li:last-child {
-        border-right: none;
-    }
-
-    .nav-menu li a {
-        font-size: 14px;
+    .hamburger {
+        display: block;
     }
 
     .logo img {
-        height: 70px;
+        height: 55px;
+    }
+
+    /* Nav menu: hidden by default, slides down when open */
+    .nav-menu {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: #fff;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        padding: 10px 0;
+        z-index: 999;
+    }
+
+    .nav-menu.open {
+        display: flex;
+    }
+
+    .nav-menu li {
+        border-right: none;
+        border-bottom: 1px solid #f0f0f0;
+        padding: 0;
+    }
+
+    .nav-menu li:last-child {
+        border-bottom: none;
+    }
+
+    .nav-menu li a {
+        display: block;
+        padding: 14px 24px;
+        font-size: 15px;
+        color: #333;
+    }
+
+    .nav-menu li a:hover,
+    .nav-menu li a.active {
+        background-color: #f5fdf0;
+        color: #8BC34A;
+    }
+
+    .navbar {
+        position: sticky;
+        padding: 10px 0;
     }
 
     .hero-content {
@@ -1006,55 +1073,96 @@ html {
         padding: 50px 0;
     }
 
+    /* --- Products: 2-column compact grid on mobile --- */
     .product-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
     }
 
+    /* Products: use CSS grid so buttons sit side-by-side below the carousel */
     .product-carousel-wrapper {
-        flex-direction: column;
-        gap: 20px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        justify-items: center;
+    }
+
+    .product-carousel-container {
+        grid-column: 1 / -1;
+        order: 1;
     }
 
     .product-nav-btn {
-        width: 100%;
-        max-width: 200px;
+        position: static;
+        transform: none;
+        width: 48px;
+        height: 48px;
+        padding: 0;
+        font-size: 20px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .product-nav-btn.prev {
         order: 2;
-    }
-
-    .product-carousel-container {
-        order: 1;
+        justify-self: end;
     }
 
     .product-nav-btn.next {
         order: 3;
+        justify-self: start;
     }
 
+    /* Product card: uniform square on mobile */
+    .product-card {
+        border-radius: 8px;
+    }
+
+    .product-card:hover {
+        transform: none;
+    }
+
+    .product-card img {
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+    }
+
+    /* --- What We Do / Awards Carousel: overlay buttons on image --- */
     .carousel-container {
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    .carousel-btn {
         position: relative;
-        margin: 10px 0;
-    }
-
-    .carousel-btn.prev {
-        order: 2;
-    }
-
-    .carousel-btn.next {
-        order: 3;
+        flex-direction: row;
+        gap: 0;
+        max-width: 100%;
     }
 
     .carousel-content {
-        order: 1;
-        height: 350px;
+        height: 300px;
         max-width: 100%;
+        border-radius: 8px;
+    }
+
+    .carousel-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        margin: 0;
+        padding: 10px 14px;
+        font-size: 18px;
+        border-radius: 50%;
+        background-color: rgba(139, 195, 74, 0.85);
+        z-index: 10;
+    }
+
+    .carousel-btn.prev {
+        left: 8px;
+        order: unset;
+    }
+
+    .carousel-btn.next {
+        right: 8px;
+        order: unset;
     }
 
     .subsection-title {
@@ -1125,35 +1233,28 @@ html {
         font-size: 28px;
     }
 
-    .nav-menu {
-        gap: 0;
-        flex-wrap: wrap;
-    }
-
-    .nav-menu li {
-        padding: 5px 8px;
-        border-right: 1px solid #e0e0e0;
-    }
-
-    .nav-menu li:last-child {
-        border-right: none;
-    }
-
-    .nav-menu li a {
-        font-size: 11px;
-    }
-
     .logo img {
-        height: 60px;
+        height: 50px;
     }
 
     .carousel-content {
-        height: 280px;
+        height: 220px;
     }
 
     .carousel-btn {
-        padding: 10px 15px;
-        font-size: 20px;
+        padding: 8px 12px;
+        font-size: 16px;
+    }
+
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+
+    .product-nav-btn {
+        width: 42px;
+        height: 42px;
+        font-size: 16px;
     }
 
     .about-content p,
