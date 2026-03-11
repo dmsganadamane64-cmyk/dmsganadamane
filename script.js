@@ -119,11 +119,35 @@ document.getElementById('contactForm').addEventListener('submit', function (e) {
     }
 
     if (valid) {
-        document.getElementById('formSuccess').style.display = 'block';
-        this.reset();
-        setTimeout(() => {
-            document.getElementById('formSuccess').style.display = 'none';
-        }, 5000);
+        const submitBtn = document.querySelector('.form-submit-btn');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
+
+        const formData = new FormData(this);
+
+        fetch('https://formspree.io/f/xojkdlnz', {
+            method: 'POST',
+            body: formData,
+            headers: { 'Accept': 'application/json' }
+        })
+        .then(response => {
+            if (response.ok) {
+                document.getElementById('formSuccess').style.display = 'block';
+                document.getElementById('contactForm').reset();
+                setTimeout(() => {
+                    document.getElementById('formSuccess').style.display = 'none';
+                }, 5000);
+            } else {
+                alert('Something went wrong. Please try again.');
+            }
+        })
+        .catch(() => {
+            alert('Network error. Please try again.');
+        })
+        .finally(() => {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = 'Send Message &#x27A4;';
+        });
     }
 });
 
