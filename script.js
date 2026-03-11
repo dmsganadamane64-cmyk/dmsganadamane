@@ -59,6 +59,14 @@ function changeSlide(carouselName, direction) {
 
     // Add active class to new slide
     images[currentSlides[carouselName]].classList.add('active');
+
+    // Show overlay text only on the first slide of whatWeDo carousel
+    if (carouselName === 'whatWeDo') {
+        const overlay = document.querySelector('.carousel-overlay-text');
+        if (overlay) {
+            overlay.style.display = currentSlides[carouselName] === 0 ? 'block' : 'none';
+        }
+    }
 }
 
 // Auto-slide product carousel every 4 seconds

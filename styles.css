@@ -358,6 +358,25 @@ html {
     z-index: 1;
 }
 
+/* Text overlay on carousel image */
+.carousel-overlay-text {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    background: rgba(0, 0, 0, 0.55);
+    color: #fff;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    padding: 8px 28px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
 .carousel-btn {
     background-color: #8BC34A;
     border: none;
@@ -1165,8 +1184,10 @@ html {
         order: unset;
     }
 
-    .subsection-title {
-        font-size: 24px;
+    .carousel-overlay-text {
+        font-size: 16px;
+        padding: 6px 18px;
+        top: 12px;
     }
 }
 
