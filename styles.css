@@ -373,7 +373,8 @@ html {
     padding: 8px 28px;
     border-radius: 6px;
     text-transform: uppercase;
-    white-space: nowrap;
+    text-align: center;
+    max-width: 90%;
     pointer-events: none;
 }
 
@@ -1134,7 +1135,6 @@ html {
         justify-self: start;
     }
 
-    /* Product card: uniform square on mobile */
     .product-card {
         border-radius: 8px;
     }
@@ -1144,8 +1144,9 @@ html {
     }
 
     .product-card img {
-        aspect-ratio: 1 / 1;
-        object-fit: cover;
+        width: 100%;
+        height: auto;
+        object-fit: contain;
     }
 
     /* --- What We Do / Awards Carousel: overlay buttons on image --- */
@@ -1185,9 +1186,10 @@ html {
     }
 
     .carousel-overlay-text {
-        font-size: 16px;
-        padding: 6px 18px;
-        top: 12px;
+        font-size: 13px;
+        padding: 5px 14px;
+        top: 10px;
+        letter-spacing: 1px;
     }
 }
 
