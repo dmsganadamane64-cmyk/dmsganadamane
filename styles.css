@@ -487,12 +487,11 @@ html {
 }
 
 .awards-description {
-    text-align: center;
-    max-width: 850px;
-    margin: 0 auto 40px;
-    font-size: 1.05rem;
+    font-size: 16px;
     line-height: 1.8;
-    color: #555;
+    color: #333;
+    margin-bottom: 30px;
+    text-align: justify;
 }
 
 .carousel-image[data-carousel="awards"],
@@ -1100,6 +1099,11 @@ html {
 
     .about, .what-we-do, .products, .awards {
         padding: 50px 0;
+    }
+
+    .about-content p,
+    .awards-description {
+        text-align: left;
     }
 
     /* --- Products: 2-column compact grid on mobile --- */
