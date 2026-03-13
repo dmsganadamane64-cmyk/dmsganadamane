@@ -486,6 +486,15 @@ html {
     background-color: #fff;
 }
 
+.awards-description {
+    text-align: center;
+    max-width: 850px;
+    margin: 0 auto 40px;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #555;
+}
+
 .carousel-image[data-carousel="awards"],
 .carousel-image[data-carousel="whatWeDo"] {
     object-fit: contain;
